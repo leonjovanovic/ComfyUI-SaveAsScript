@@ -211,7 +211,7 @@ class CodeGenerator:
 
             input_types = self.node_class_mappings[class_type].INPUT_TYPES()
             missing = []
-            for i, input in enumerate(input_types.get("required", {}).keys()):
+            for i, input in enumerate(list(input_types.get("required", {})) + list(input_types.get("optional", {}))):
                 if isinstance(inputs.get(input, []), (int, str, float, bool)):
                     input_var = f"{input}{len(arg_inputs)+1}"
                     arg_inputs.append((input_var, f"Argument {i}, input `{input}` for node \\\"{data.get('_meta', {}).get('title', class_type)}\\\" id {idx}", inputs.get(input, [])))
