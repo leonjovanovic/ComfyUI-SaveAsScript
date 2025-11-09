@@ -114,6 +114,9 @@ class LoadOrderDeterminer:
         self._load_special_functions_first()
         self.is_special_function = False
         for key in self.data:
+            class_type = self.data[key]['class_type']
+            if "easy_showanything" in class_type.lower() or "easy showAnything" in class_type.lower():
+                continue
             if key not in self.visited:
                 self._dfs(key)
         return self.load_order
