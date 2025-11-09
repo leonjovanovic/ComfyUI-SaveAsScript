@@ -74,7 +74,7 @@ def find_path(name: str, path: str = None) -> str:
     parent_directory = os.path.dirname(path)
 
     # If the parent directory is the same as the current directory, we've reached the root and stop the search
-    if parent_directory == path:
+    if parent_directory == path or not parent_directory:
         return None
 
     # Recursively call the function with the parent directory
@@ -91,10 +91,12 @@ def add_comfyui_directory_to_sys_path() -> None:
 
         manager_path = os.path.join(comfyui_path, "custom_nodes", "ComfyUI-Manager", "glob")
 
+        global has_manager
         if os.path.isdir(manager_path) and os.listdir(manager_path):
             sys.path.append(manager_path)
-            global has_manager
             has_manager = True
+        else:
+            has_manager = False
         
         import __main__
 

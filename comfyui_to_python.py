@@ -220,6 +220,11 @@ class CodeGenerator:
 
             class_def = self.node_class_mappings[class_type]()
 
+            # Skip easy_showanything.log_input nodes entirely (don't initialize or emit code for them)
+            if getattr(class_def, "FUNCTION", None) == "log_input" and "easy_showanything" in class_type.lower():
+                executed_variables[idx] = "None"
+                continue
+
             # If the class hasn't been initialized yet, initialize it and generate the import statements
             if class_type not in initialized_objects:
                 # No need to use preview image nodes since we are executing the script in a terminal
