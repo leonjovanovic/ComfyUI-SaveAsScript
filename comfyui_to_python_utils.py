@@ -149,7 +149,7 @@ def get_value_at_index(obj: Union[Sequence, Mapping], index: int) -> Any:
 
 def parse_arg(s: Any, default: Any = None) -> Any:
     """ Parses a JSON string, returning it unchanged if the parsing fails. """
-    if __name__ == "__main__" or not isinstance(s, str):
+    if not isinstance(s, str):
         return s
     
     try:
